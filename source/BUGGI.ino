@@ -20,6 +20,12 @@ void setup() {
 }
 
 void loop() {
+//  setRGBBacklight(LCD_ADDR, 0xFF, 0xFF, 0xFF);
+  if (flashRed)
+    setRGBBacklight(LCD_ADDR, 0xFF, 0x00, 0x00);
+  else
+    setRGBBacklight(LCD_ADDR, 0xFF, 0xFF, 0xFF);
+        
   delay(100); 
   if (timerCont)
     dsec++;
@@ -40,15 +46,10 @@ void loop() {
     displayHillTime(sectorTime, sector);
   else if (sector == 7) { // roll ending
     displayAllTime();
-    if (0 < flash && flash <= 31){
+    if (0 < flash && flash <= 31)
       displayMsg("O");
-      if (flashRed)
-        setRGBBacklight(LCD_ADDR, 0xFF, 0x00, 0x00);
-      else
-        setRGBBacklight(LCD_ADDR, 0xFF, 0xFF, 0xFF);
-        
-      if (flash % 5 == 1)
-        flashRed = !flashRed;
+    if (flash % 5 == 1)
+      flashRed = !flashRed;
     }
   } else { // sector = 8, restarting
     clearLCD();
